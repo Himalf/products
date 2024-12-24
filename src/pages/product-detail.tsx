@@ -43,9 +43,12 @@ export default function ProductDetail({}: Props) {
               <div className="text-lg text-gray-700 ">
                 <strong>Price:</strong> ${product.price}
               </div>
-              <div className="mt-6">
+              <div className="mt-6 gap-4 flex item-center">
                 <button className="bg-blue-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-blue-600 transition-all">
                   Add to Cart
+                </button>
+                <button className="bg-red-500 text-white py-2 px-6 rounded-lg shadow-md hover:bg-red-600 transition-all">
+                  Buy Now
                 </button>
               </div>
             </div>
