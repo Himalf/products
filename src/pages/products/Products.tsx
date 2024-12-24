@@ -7,10 +7,10 @@ const Products = () => {
     try {
       const res = await fetch("https://fakestoreapi.com/products");
       const data = await res.json();
-      console.log(data, "the resulting data");
+      console.log(data, "the  data");
       setProducts(data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error("Error while fetching ", error);
     }
   };
 
