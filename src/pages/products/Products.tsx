@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(8);
+  const [itemsPerPage] = useState(8);
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`https://fakestoreapi.com/products?limit=${itemsPerPage}&page=${currentPage}`);
+      const res = await fetch(`https://fakestoreapi.com/products`);
       const data = await res.json();
       console.log(data, "the  data");
       setProducts(data);
@@ -53,7 +53,16 @@ const Products = () => {
     </main>
 {/* for pagination buttons  */}
 <div className="">
+{Array.from({length:totalPages},(_,index)=>(
+     <button key={index} className={`px-4 py-2 rounded-md ${currentPage=== index+1?"bg-blue-500 text-white": "bg-gray-200 text-blue-500"}`}
+     onClick={()=>{
+        setCurrentPage(index+1)
+     }}
+     >
+        {index+1}
 
+     </button>
+))}
 </div>
 
    </div>
