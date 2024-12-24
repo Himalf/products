@@ -5,11 +5,12 @@ import {FaStar} from "react-icons/fa"
 type Props = {};
 
 export default function ProductDetail({}: Props) {
+    const API_URL = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState<IProduct | null>(null);
   const { id } = useParams<{ id: string }>();
 
   const fetchProduct = async () => {
-    const res = await fetch(`https://dummyjson.com/products/${id}`);
+    const res = await fetch(`${API_URL}/${id}`);
     const data = await res.json();
     setProduct(data);
     console.log(data, 'single product');

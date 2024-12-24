@@ -3,12 +3,14 @@ import { IProduct } from "../../types/product";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 const Products = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+console.log(API_URL," the api url to test")
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`https://dummyjson.com/products`);
+      const res = await fetch(`${API_URL}`);
       const data = await res.json();
       console.log(data.products, "the  data");
       setProducts(data.products);
