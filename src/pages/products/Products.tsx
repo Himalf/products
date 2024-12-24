@@ -38,7 +38,10 @@ const Products = () => {
               />{" "}
             </div>
             <div className="font-semibold text-xl">{val.title}</div>
-            <div>${val.price}</div>
+           <div className="flex justify-between items-center" >
+           <div>${val.price}</div>
+           <div>{val.rating.rate}({val.rating.count})</div>
+           </div>
             <div>
               <Link
                 to={`/products/${val.id}`}
