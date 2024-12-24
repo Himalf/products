@@ -19,7 +19,7 @@ export default function ProductDetail({}: Props) {
   return (
     <main>
         <section>
-            {(products as IProduct[]).map((val)=>{
+            {(products).map((val)=>{
                 return(
                     <div>
                          <div>{val.title}</div>

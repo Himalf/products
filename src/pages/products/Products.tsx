@@ -3,9 +3,11 @@ import { IProduct } from "../../types/product";
 import { Link } from "react-router-dom";
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(8);
   const fetchProducts = async () => {
     try {
-      const res = await fetch("https://fakestoreapi.com/products");
+      const res = await fetch(`https://fakestoreapi.com/products?limit=${itemsPerPage}&page=${currentPage}`);
       const data = await res.json();
       console.log(data, "the  data");
       setProducts(data);
@@ -16,11 +18,16 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [itemsPerPage,currentPage]);
+  const totalPages = Math.ceil(products.length/itemsPerPage)
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = products.slice(startIndex, endIndex);
 
   return (
-    <main className="grid grid-cols-4 place-items-center place-content-center gap-10">
-      {(products as IProduct[]).map((val) => {
+   <div className="p-5">
+     <main className="grid grid-cols-4 place-items-center place-content-center gap-10">
+      {currentItems.map((val) => {
         return (
           <section className="cursor-pointer p-2 border w-80 h-96 border-red-400 rounded-md">
             <div className="w-56">
@@ -44,6 +51,12 @@ const Products = () => {
         );
       })}
     </main>
+{/* for pagination buttons  */}
+<div className="">
+
+</div>
+
+   </div>
   );
 };
 
