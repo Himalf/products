@@ -1,8 +1,13 @@
+import { BackgroundBeamsWithCollision } from "../../components/ui/background-beams-with-collision";
 
-type Props = {}
+type Props = {};
 
 export default function LandingPage({}: Props) {
   return (
-    <div>LandingPage</div>
-  )
+    <div>
+      <BackgroundBeamsWithCollision>
+        <div>Some optional content here</div>
+      </BackgroundBeamsWithCollision>
+    </div>
+  );
 }
