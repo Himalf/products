@@ -4,9 +4,12 @@ export interface IProduct {
   price: string;
   category: string;
   description: string;
-  image: string;
-  rating: {
-    count: number;
-    rate: number;
-  };
+  // image: string;
+  // rating: {
+  //   count: number;
+  //   rate: number;
+  // };
+  rating: number;
+  reviews: string[];
+  images: string[];
 }

@@ -7,10 +7,10 @@ const Products = () => {
   const [itemsPerPage] = useState(8);
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`https://fakestoreapi.com/products`);
+      const res = await fetch(`https://dummyjson.com/products`);
       const data = await res.json();
-      console.log(data, "the  data");
-      setProducts(data);
+      console.log(data.products, "the  data");
+      setProducts(data.products);
     } catch (error) {
       console.error("Error while fetching ", error);
     }
@@ -32,7 +32,7 @@ const Products = () => {
           <section className="cursor-pointer p-2 border w-80 h-96 border-red-400 rounded-md">
             <div className="w-56">
               <img
-                src={val.image}
+                src={val.images[0]}
                 alt="product image"
                 className=" object-cover h-56 w-56"
               />{" "}
@@ -40,7 +40,7 @@ const Products = () => {
             <div className="font-semibold text-xl">{val.title}</div>
            <div className="flex justify-between items-center" >
            <div>${val.price}</div>
-           <div>{val.rating.rate}({val.rating.count})</div>
+           <div>{val.rating}({val.reviews.length})</div>
            </div>
             <div>
               <Link

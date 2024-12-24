@@ -9,7 +9,7 @@ export default function ProductDetail({}: Props) {
   const { id } = useParams<{ id: string }>();
 
   const fetchProduct = async () => {
-    const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const res = await fetch(`https://dummyjson.com/products/${id}`);
     const data = await res.json();
     setProduct(data);
     console.log(data, 'single product');
@@ -22,14 +22,15 @@ export default function ProductDetail({}: Props) {
   return (
     <main className="min-h-screen bg-gray-100 py-8">
       <section className="flex flex-col items-center justify-center">
-        {product && (
+        {product ? (
           <div className="flex flex-col md:flex-row justify-center items-center gap-10 max-w-4xl px-4">
             <div className="w-full md:w-1/2">
               <img
-                src={product.image}
+                src={product.images[0]}
                 alt="product detail"
                 className="w-full h-auto object-cover rounded-lg shadow-lg"
               />
+              
             </div>
             <div className="w-full md:w-2/3 space-y-6">
               <div className="text-2xl font-semibold text-gray-800">{product.title}</div>
@@ -38,7 +39,7 @@ export default function ProductDetail({}: Props) {
                 <strong>Category:</strong> {product.category}
               </div>
               <div className="text-lg text-gray-700 mt- flex items-center gap-1">
-                <strong>rating:</strong> {product.rating.rate} <FaStar className='text-sm text-yellow-400'/> ({product.rating.count} Reviews)
+                <strong>rating:</strong> {product.rating} <FaStar className='text-sm text-yellow-400'/> ({product.reviews.length} Reviews)
               </div>
               <div className="text-lg text-gray-700 ">
                 <strong>Price:</strong> ${product.price}
@@ -53,8 +54,11 @@ export default function ProductDetail({}: Props) {
               </div>
             </div>
           </div>
-        )}
+        ): <div>
+            loadinng
+            </div>}
       </section>
+     
     </main>
   );
 }
