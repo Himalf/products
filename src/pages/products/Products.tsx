@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { IProduct } from "../../types/product";
 import { Link } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -25,36 +26,37 @@ const Products = () => {
   const currentItems = products.slice(startIndex, endIndex);
 
   return (
-   <div className="p-5">
-     <main className="grid grid-cols-4 place-items-center place-content-center gap-10">
+   <div className="p-5 bg-gray-200 min-h-screen">
+     <main className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1  place-items-center place-content-center gap-10">
       {currentItems.map((val) => {
         return (
-          <section className="cursor-pointer p-2 border w-80 h-96 border-red-400 rounded-md">
-            <div className="w-56">
+          <section className="cursor-pointer p-4 border w-full h-auto bg-white shadow-md rounded-md hover:shadow-lg transition-shadow duration-300">
+            <div className="w-full h-56 overflow-hidden flex justify-center items-center">
               <img
                 src={val.images[0]}
                 alt="product image"
                 className=" object-cover h-56 w-56"
               />{" "}
             </div>
-            <div className="font-semibold text-xl">{val.title}</div>
-           <div className="flex justify-between items-center" >
+            <div className="font-semibold text-xl mt-4">{val.title}</div>
+           <div className="flex justify-between items-center mt-2" >
            <div>${val.price}</div>
-           <div>{val.rating}({val.reviews.length})</div>
+           <div className="flex items-center">{val.rating} <FaStar className="text-yellow-400"/> ({val.reviews.length})</div>
            </div>
-            <div>
-              <Link
+           <Link
                 to={`/products/${val.id}`}
-                className="bg-blue-600 text-white font-bold text-md px-5 py-1 rounded-md"
-              >
+                className=""
+               >
+            <button className="mt-4 w-full object-cover bg-blue-600 text-white font-semibold text-lg rounded-md py-1">
+             
                 Show More
-              </Link>       
-            </div>
+            </button>
+          </Link>
           </section>
         );
       })}
     </main>
-{/* for pagination buttons  */}
+{/* here is the paginations button logic added  */}
 <div className="flex justify-center items-center gap-3 p-2 my-2">
 {Array.from({length:totalPages},(_,index)=>(
      <button key={index} className={`px-4 py-2 rounded-md ${currentPage=== index+1?"bg-blue-500 text-white": "bg-gray-200 text-blue-500"}`}
