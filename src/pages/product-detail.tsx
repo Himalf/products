@@ -1,19 +1,22 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { IProduct } from '../types/product';
-import {FaStar} from "react-icons/fa"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { IProduct } from "../types/product";
+import { FaStar } from "react-icons/fa";
+import { fetchProductById } from "../api/ProductApi";
 type Props = {};
 
 export default function ProductDetail({}: Props) {
-    const API_URL = import.meta.env.VITE_API_URL;
   const [product, setProduct] = useState<IProduct | null>(null);
   const { id } = useParams<{ id: string }>();
 
   const fetchProduct = async () => {
-    const res = await fetch(`${API_URL}/${id}`);
-    const data = await res.json();
-    setProduct(data);
-    console.log(data, 'single product');
+    if (id) {
+      const data = await fetchProductById(id);
+      setProduct(data);
+      console.log(data, "single product");
+    } else {
+      console.error("Product ID is undefined");
+    }
   };
 
   useEffect(() => {
@@ -31,16 +34,19 @@ export default function ProductDetail({}: Props) {
                 alt="product detail"
                 className="w-full h-auto object-cover rounded-lg shadow-lg"
               />
-              
             </div>
             <div className="w-full md:w-2/3 space-y-6">
-              <div className="text-2xl font-semibold text-gray-800">{product.title}</div>
+              <div className="text-2xl font-semibold text-gray-800">
+                {product.title}
+              </div>
               <div className="text-xl text-gray-600">{product.description}</div>
               <div className="text-lg text-gray-700 mt-4">
                 <strong>Category:</strong> {product.category}
               </div>
               <div className="text-lg text-gray-700 mt- flex items-center gap-1">
-                <strong>rating:</strong> {product.rating} <FaStar className='text-sm text-yellow-400'/> ({product.reviews.length} Reviews)
+                <strong>rating:</strong> {product.rating}{" "}
+                <FaStar className="text-sm text-yellow-400" /> (
+                {product.reviews.length} Reviews)
               </div>
               <div className="text-lg text-gray-700 ">
                 <strong>Price:</strong> ${product.price}
@@ -55,11 +61,10 @@ export default function ProductDetail({}: Props) {
               </div>
             </div>
           </div>
-        ): <div>
-            loadinng
-            </div>}
+        ) : (
+          <div>loading</div>
+        )}
       </section>
-     
     </main>
   );
 }

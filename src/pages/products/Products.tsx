@@ -3,18 +3,18 @@ import { IProduct } from "../../types/product";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import Pagination from "../../components/Pagination";
+import { fetchProducts as fetchProduct } from "../../api/ProductApi";
 const Products = () => {
-  const API_URL = import.meta.env.VITE_API_URL;
-  console.log(API_URL, " the api url to test");
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(8);
+
+  // fetching the products
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`${API_URL}`);
-      const data = await res.json();
-      console.log(data.products, "the  data");
-      setProducts(data.products);
+      const data = await fetchProduct();
+      console.log(data, "the  data");
+      setProducts(data);
     } catch (error) {
       console.error("Error while fetching ", error);
     }
@@ -23,6 +23,8 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
   }, [itemsPerPage, currentPage]);
+
+  //  Pagination logics and maths
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
