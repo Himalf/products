@@ -30,7 +30,7 @@ export default function ProductDetail({}: Props) {
           <div className="flex flex-col md:flex-row justify-center items-center gap-10 max-w-4xl px-4">
             <div className="w-full md:w-1/2">
               <img
-                src={product.images[0]}
+                src={product.image}
                 alt="product detail"
                 className="w-full h-auto object-cover rounded-lg shadow-lg"
               />
