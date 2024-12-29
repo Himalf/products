@@ -8,7 +8,7 @@ interface AuthFormProps {
     email: string;
     password: string;
     name?: string;
-  }) => void;
+  }) => Promise<void>;
   isSignUp: boolean;
 }
 
