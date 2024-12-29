@@ -51,7 +51,7 @@ export default function AuthForm({ onSubmit, isSignUp }: AuthFormProps) {
       label: "Password",
     },
   ];
-
+  // Form FOR BOTH LOGIN AND SIGNUP PAGE
   return (
     <div className="flex justify-center items-center h-screen bg-gray-50">
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
