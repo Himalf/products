@@ -1,10 +1,12 @@
 import { toast } from "sonner";
 import { BASE_URL } from "../api/api";
 import AuthForm from "../components/AuthForm";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 export default function SignUp({}: Props) {
+  const navigate = useNavigate();
   const handleSignUp = async (values: {
     email: string;
     password: string;
@@ -23,6 +25,7 @@ export default function SignUp({}: Props) {
         throw new Error(errorData.message);
       }
       toast.success("Sign up successful");
+      navigate("/login");
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message || "Something went wrong");
