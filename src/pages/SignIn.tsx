@@ -2,10 +2,11 @@ import React, { useContext } from "react";
 import AuthForm from "../components/AuthForm";
 import { BASE_URL } from "../api/api";
 import { AuthContext } from "../context/AuthContext";
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 const Signin: React.FC = () => {
   const { login } = useContext(AuthContext)!;
-
+  const navigate = useNavigate();
   const handleSignin = async (values: { email: string; password: string }) => {
     try {
       const response = await fetch(`${BASE_URL}/api/login`, {
@@ -21,9 +22,12 @@ const Signin: React.FC = () => {
 
       const data = await response.json();
       login(data.token);
-      alert("Signin successful");
+      toast.success("Signin successful");
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     } catch (error: any) {
-      alert(error.message || "Signin failed");
+      toast.error(error.message || "Something went wrong");
     }
   };
 

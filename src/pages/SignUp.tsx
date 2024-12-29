@@ -1,5 +1,4 @@
-import React from "react";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import { BASE_URL } from "../api/api";
 import AuthForm from "../components/AuthForm";
 
