@@ -1,7 +1,4 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { div } from "framer-motion/client";
-import React from "react";
-import { MdEmail } from "react-icons/md";
 import * as yup from "yup";
 interface AuthFormProps {
   onSubmit: (values: {

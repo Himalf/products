@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { setAuthToken } from "../api/api";
 import { createContext, ReactNode, useState } from "react";
 interface AuthContextType {
@@ -10,6 +11,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  //   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );

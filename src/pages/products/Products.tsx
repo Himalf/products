@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { IProduct } from "../../types/product";
 import { Link } from "react-router-dom";
-import { FaStar } from "react-icons/fa";
+// import { FaStar } from "react-icons/fa";
 import Pagination from "../../components/Pagination";
-import { fetchProducts as fetchProduct } from "../../api/ProductApi";
+// import { fetchProducts as fetchProduct } from "../../api/ProductApi";
+import { fetchWithAuth } from "../../api/api";
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -17,9 +18,7 @@ const Products = () => {
   // fetching the products
   const fetchProducts = async () => {
     try {
-      const data = await fetchProduct();
-      // const res = await fetch(`http://localhost:4000/products`);
-      // const data = await res.json();
+      const data = await fetchWithAuth("products");
       console.log(data, "the  data");
       setProducts(data);
     } catch (error) {

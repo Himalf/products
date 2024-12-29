@@ -13,7 +13,7 @@ export const fetchWithAuth = async (
   const token = localStorage.getItem("token");
   const headers = {
     ...(options.headers as Record<string, string>),
-    Authorization: token ? `${token}` : "",
+    Authorization: token ? `Bearer ${token}` : "",
     "content-type": "application/json",
   };
   const response = await fetch(`${BASE_URL}/${endPoint}`, {
