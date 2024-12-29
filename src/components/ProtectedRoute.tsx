@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { fetchWithAuth } from "../api/api"; // Function to validate the token
 
 export default function ProtectedRoute({
   children,
@@ -9,25 +10,31 @@ export default function ProtectedRoute({
 }) {
   const auth = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
   useEffect(() => {
-    if (!auth?.token && localStorage.getItem("token")) {
-      navigate("/login");
-    }
-  }, [auth?.token, navigate]);
+    const validateToken = async () => {
+      try {
+        const token = auth?.token || localStorage.getItem("token");
+        if (token) {
+          // Validate the token by calling the backend
+          await fetchWithAuth("products");
+        } else {
+          throw new Error("No token");
+        }
+      } catch (error) {
+        console.error("Invalid or missing token:", error);
+        // Redirect to login and remember the attempted route
+        navigate("/login", { state: { from: location.pathname } });
+      }
+    };
+
+    validateToken();
+  }, [auth?.token, navigate, location.pathname]);
+
+  // Prevent rendering children until the token is validated
   if (!auth?.token || !localStorage.getItem("token")) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="p-4 border border-red-500 bg-red-100 rounded">
-          <p className="text-red-500 font-bold  text-xl">Unauthorized Access</p>
-          <button
-            onClick={() => navigate("/login")}
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Go to Login
-          </button>
-        </div>
-      </div>
-    );
+    return null; // Do not render anything while redirecting
   }
 
   return <>{children}</>;
