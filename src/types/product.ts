@@ -3,12 +3,13 @@ export interface IProduct {
   id: number;
   title: string;
   price: string;
-  category: string;
+  categoryName: string;
   description: string;
   image: string;
   // rating: {
   //   count: number;
-  //   rate: number;
+  //   rate
+  // : number;
   // };
   rating: number;
   reviews: string[];

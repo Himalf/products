@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IProduct } from "../types/product";
-import { FaStar } from "react-icons/fa";
-import { fetchProductById } from "../api/ProductApi";
+import { fetchWithAuth } from "../api/api";
+import { Toaster, toast } from "sonner";
 type Props = {};
 
 export default function ProductDetail({}: Props) {
@@ -11,11 +11,11 @@ export default function ProductDetail({}: Props) {
 
   const fetchProduct = async () => {
     if (id) {
-      const data = await fetchProductById(id);
+      const data = await fetchWithAuth(`products/${id}`);
       setProduct(data);
-      console.log(data, "single product");
+      toast.success("Product Detail");
     } else {
-      console.error("Product ID is undefined");
+      toast.error("Cannot get product detail");
     }
   };
 
@@ -25,6 +25,7 @@ export default function ProductDetail({}: Props) {
 
   return (
     <main className="min-h-screen bg-gray-100 py-8">
+      <Toaster />
       <section className="flex flex-col items-center justify-center">
         {product ? (
           <div className="flex flex-col md:flex-row justify-center items-center gap-10 max-w-4xl px-4">
@@ -41,13 +42,13 @@ export default function ProductDetail({}: Props) {
               </div>
               <div className="text-xl text-gray-600">{product.description}</div>
               <div className="text-lg text-gray-700 mt-4">
-                <strong>Category:</strong> {product.category}
+                <strong>Category:</strong> {product.categoryName}
               </div>
-              <div className="text-lg text-gray-700 mt- flex items-center gap-1">
+              {/* <div className="text-lg text-gray-700 mt- flex items-center gap-1">
                 <strong>rating:</strong> {product.rating}{" "}
                 <FaStar className="text-sm text-yellow-400" /> (
                 {product.reviews.length} Reviews)
-              </div>
+              </div> */}
               <div className="text-lg text-gray-700 ">
                 <strong>Price:</strong> ${product.price}
               </div>
