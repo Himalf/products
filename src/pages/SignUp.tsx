@@ -13,7 +13,7 @@ export default function SignUp({}: Props) {
     name?: string;
   }) => {
     try {
-      const response = await fetch(`${BASE_URL}/auth/signup`, {
+      const response = await fetch(`${BASE_URL}/api/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
