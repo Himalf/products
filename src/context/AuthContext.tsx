@@ -10,7 +10,6 @@ export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  //   const navigate = useNavigate();
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );

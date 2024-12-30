@@ -23,5 +23,6 @@ export const fetchWithAuth = async (
   if (!response.ok) {
     throw new Error(response.statusText);
   }
+
   return response.json();
 };
