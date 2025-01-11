@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/landingPage/LandingPage";
 import Products from "./pages/products/Products";
 import ProductDetail from "./pages/product-detail";
+// random line
 import { AuthProvider } from "./context/AuthContext";
 import SignUp from "./pages/SignUp";
 import Signin from "./pages/SignIn";
